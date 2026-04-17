@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriBot — AI Farming Advisor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+    <div class="sidebar-brand">
+        <div class="brand-icon">🌾</div>
+        <div>
+            <div class="brand-name">AgriBot</div>
+            <div class="brand-sub">AI Farming Advisor</div>
+        </div>
+    </div>
+
+    <nav class="quick-topics">
+        <p class="nav-label">Ask about</p>
+        <button class="topic-btn" onclick="sendQuickMessage('My crop has yellow leaves and spots. What disease is it?')">
+            <span class="topic-icon">🦠</span>
+            <span>Crop Disease</span>
+        </button>
+        <button class="topic-btn" onclick="sendQuickMessage('What crops should I plant this season based on weather?')">
+            <span class="topic-icon">🌤️</span>
+            <span>Weather Advice</span>
+        </button>
+        <button class="topic-btn" onclick="sendQuickMessage('What fertilizer should I use for wheat crop?')">
+            <span class="topic-icon">🌱</span>
+            <span>Fertilizers</span>
+        </button>
+        <button class="topic-btn" onclick="sendQuickMessage('What is the current MSP for wheat and paddy?')">
+            <span class="topic-icon">📈</span>
+            <span>Market Prices</span>
+        </button>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="session-info">
+            <span class="dot"></span>
+            <span id="session-status">New Session</span>
+        </div>
+        <button class="new-chat-btn" onclick="startNewChat()">+ New Chat</button>
+    </div>
+</aside>
+
+<!-- ===== MAIN CHAT AREA ===== -->
+<main class="chat-main">
+
+    <!-- Header -->
+    <header class="chat-header">
+        <div class="header-left">
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                <span>AI Online</span>
+            </div>
+        </div>
+        <div class="header-title">
+            <span>Krishi Sahayak</span>
+            <span class="header-sub">कृषि सहायक</span>
+        </div>
+        <div class="header-right">
+            <span class="model-badge">Gemini 1.5</span>
+        </div>
+    </header>
+
+    <!-- Messages Container -->
+    <div class="messages-container" id="messagesContainer">
+
+        <!-- Welcome State -->
+        <div class="welcome-state" id="welcomeState">
+            <div class="welcome-icon">🌾</div>
+            <h2 class="welcome-title">Namaste, Farmer!</h2>
+            <p class="welcome-text">Ask me anything about your crops — diseases, weather, fertilizers, or market prices. I'm here to help your farm thrive.</p>
+            <div class="welcome-chips">
+                <button class="chip" onclick="sendQuickMessage('How do I identify and treat wheat rust disease?')">Wheat rust treatment</button>
+                <button class="chip" onclick="sendQuickMessage('Best practices for drip irrigation in summer?')">Drip irrigation tips</button>
+                <button class="chip" onclick="sendQuickMessage('Organic pesticides for vegetable crops?')">Organic pesticides</button>
+                <button class="chip" onclick="sendQuickMessage('What government schemes are available for farmers in India?')">Govt schemes</button>
+            </div>
+        </div>
+
+        <!-- Messages will be appended here by JavaScript -->
+
+    </div>
+
+    <!-- Category Badge (shows detected topic) -->
+    <div class="category-strip" id="categoryStrip" style="display:none">
+        <span id="categoryLabel">🌾 General</span>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+        <div class="input-wrapper">
+            <textarea
+                id="messageInput"
+                class="message-input"
+                placeholder="Ask about your crops... (e.g., My tomato leaves are turning yellow)"
+                rows="1"
+                onkeydown="handleKeyDown(event)"
+                oninput="autoResize(this)"
+            ></textarea>
+            <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <p class="input-hint">AgriBot may make mistakes. Verify with your local KVK for critical decisions.</p>
+    </div>
+</main>
+
+<script th:src="@{/js/chat.js}"></script>
+</body>
+</html>
