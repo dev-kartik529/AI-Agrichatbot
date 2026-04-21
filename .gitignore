@@ -22,5 +22,3 @@ Thumbs.db
 out/
 build/
 
-# Secrets
-src/main/resources/application.properties
